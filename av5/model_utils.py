@@ -19,13 +19,13 @@ def train(generator, discriminator, data_loader,
         for i, (imgs, labels) in enumerate(data_loader):
             batch_size_curr = imgs.size(0)
 
-            valid = torch.ones(batch_size_curr, 1)
-            fake = torch.zeros(batch_size_curr, 1)
+            valid = torch.ones(batch_size_curr, 1).to('cuda')
+            fake = torch.zeros(batch_size_curr, 1).to('cuda')
 
-            real_imgs = imgs
+            real_imgs = imgs.to('cuda')
 
             optimizer_generator.zero_grad()
-            z = torch.randn(batch_size_curr, latent_dim)
+            z = torch.randn(batch_size_curr, latent_dim).to('cuda')
             gen_imgs = generator(z)
             g_loss = criterion(discriminator(gen_imgs), valid)
             g_loss.backward()
