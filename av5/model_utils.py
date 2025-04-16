@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 def sample_images(generator):
     generator.eval()
-    noise = torch.randn(1, 100)
+    noise = torch.randn(1, 100).to('cuda')
     gen_img = generator(noise)
     gen_img = gen_img.view(1, 3, 32, 32)
     gen_img = gen_img * 0.5 + 0.5
